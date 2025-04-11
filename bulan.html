@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalender Bulanan</title>
+    <link rel="stylesheet" href="bulan.css">
+</head>
+<body>
+    <h1>Kalender Bulanan</h1>
+    <label for="month-dropdown">Pilih Bulan: </label>
+    <select id="month-dropdown"></select>
+    <button id="mode-tahunan">Tahunan</button>
+        <div class="container">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+        <button id="prev-month"><</button>
+        <h2 id="month-title">Kalender</h2>
+        <button id="next-month">></button>
+        </div>
+        <div class="calendar-box">
+            <table id="calendar-table">
+                <thead>
+                    <tr>
+                        <th>M</th><th>S</th><th>S</th><th>R</th><th>K</th><th>J</th><th>S</th>
+                    </tr>
+                </thead>
+                <tbody id="calendar-body"></tbody>
+            </table>
+        </div>
+    </div>
+    <div id="popup" class="hidden">
+        <div id="popup-content">
+            <h3 id="popup-title"></h3>
+            <ul id="event-list"></ul>
+            <input type="text" id="event-text" placeholder="Masukkan jadwal">
+            <button id="save-event">Simpan</button>
+            <button id="close-popup">Tutup</button>
+        </div>
+    </div>
+    <script src="bulan.js"></script>
+</body>
+</html>

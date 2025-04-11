@@ -1,0 +1,153 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+    display: flexbox;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    font-size: 55px;
+}
+h2 {
+    font-size: 25px;
+}
+.calendar-box {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 2rem;
+}
+th, td {
+    width: 14.28%;
+    height: 80px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-size: 1.8rem;
+}
+th {
+    background: #0044cc;
+    color: white;
+    font-size: 2rem;
+    padding: 15px;
+}
+td {
+    cursor: pointer;
+    font-size: 12px;
+    position: relative;
+    padding: 20px;
+    text-align: right;
+    vertical-align: top;
+}
+td:hover {
+    background: lightgray;
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+ul li {
+    background: #eee;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+div {
+    text-align: center;
+}
+.event {
+    position: absolute;
+    bottom: 2px;
+    font-size: 14px;
+    background: orange;
+    color: white;
+    padding: 2px;
+    margin-top: 5px;
+    border-radius: 3px;
+    display: inline-block;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 400px;
+    text-align: center;
+    border-radius: 5px;
+}
+.close {
+    color: red;
+    float: right;
+    font-size: 28px;
+    cursor: pointer;
+}
+#save-event {
+    background-color: green;
+    color: white;
+}
+.delete {
+    background-color: red;
+    color: white;
+}
+button {
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 4px;
+}
+#prev-month, #next-month {
+    background-color: #007BFF;
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 2rem;
+}
+.hidden {
+    display: none;
+}
+#popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+.holiday {
+    background: #ffdddd;
+    color: red;
+    font-weight: bold;
+}
