@@ -56,7 +56,7 @@
         
                 const combined = [
                     ...apiData,
-                    ...(Array.isArray(localData?.holiday) ? localData.holiday.filter(h => h.holiday_date.startsWith(`${year}-`)) : [])
+                    ...(Array.isArray(localData?.holidays) ? localData.holidays.filter(h => h.holiday_date.startsWith(`${year}-`)) : [])
                 ];
         
                 if (!holidaysByYear[year]) holidaysByYear[year] = {};
