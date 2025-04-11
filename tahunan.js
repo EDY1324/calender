@@ -42,33 +42,36 @@
 
         async function fetchHolidays(year) {
             try {
-                let response = await fetch(`https://api-harilibur.vercel.app/api?year=${year}`);
-                let data = await response.json();
-        
-                console.log(`Data API ${year}:`, data);
-        
-                if (!Array.isArray(data)) {
-                    console.error(`Gagal mendapatkan data libur untuk ${year}:`, data);
-                    return;
+                let apiData = [];
+                try {
+                    const apiResponse = await fetch(`https://api-harilibur.vercel.app/api?year=${year}`);
+                    apiData = await apiResponse.json();
+                    if (!Array.isArray(apiData)) apiData = [];
+                } catch (apiErr) {
+                    console.warn("Gagal fetch dari API, lanjut pakai data lokal.");
                 }
         
-                data = data.filter(holiday => holiday.holiday_date.startsWith(`${year}-`));
+                const localResponse = await fetch("holiday.JSON");
+                const localData = await localResponse.json();
+        
+                const combined = [
+                    ...apiData,
+                    ...(Array.isArray(localData?.holiday) ? localData.holiday.filter(h => h.holiday_date.startsWith(`${year}-`)) : [])
+                ];
         
                 if (!holidaysByYear[year]) holidaysByYear[year] = {};
         
-                data.forEach(holiday => {
+                combined.forEach(holiday => {
                     if (!holiday.holiday_date) return;
-                    let [y, m, d] = holiday.holiday_date.split("-").map(num => parseInt(num, 10));
-                    
+                    let [y, m, d] = holiday.holiday_date.split("-").map(n => parseInt(n, 10));
                     if (!holidaysByYear[y]) holidaysByYear[y] = {};
                     if (!holidaysByYear[y][m]) holidaysByYear[y][m] = {};
-                    
                     holidaysByYear[y][m][d] = holiday.holiday_name;
                 });
         
                 generateYearCalendar(year);
-            } catch (error) {
-                console.error(`Error mengambil data libur ${year}:`, error);
+            } catch (err) {
+                console.error(`Gagal memuat data libur ${year}:`, err);
             }
         }
 
