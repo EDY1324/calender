@@ -56,9 +56,11 @@ td {
     padding: 20px;
     text-align: right;
     vertical-align: top;
+    transition: transform 0.2s ease-in-out,background-color 0.3s;
 }
 td:hover {
     background: lightgray;
+    transform: scale(1.05);
 }
 ul {
     list-style: none;
