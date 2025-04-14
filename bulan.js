@@ -85,28 +85,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async function fetchHolidays(year) {
         try {
-            let response = await fetch(`https://api-harilibur.vercel.app/api?year=${year}`);   
-            let data = await response.json();
-    
-            if (!Array.isArray(data)) {
-                console.error(`Gagal mendapatkan data libur untuk ${year}:`, data);
-                return;
+            let apiData = [];
+            try {
+                const apiResponse = await fetch(`https://api-harilibur.vercel.app/api?year=${year}`);
+                apiData = await apiResponse.json();
+                if (!Array.isArray(apiData)) apiData = [];
+            } catch (apiErr) {
+                console.warn("Gagal fetch dari API, lanjut pakai data lokal.");
             }
+    
+            const localResponse = await fetch("holiday.JSON");
+            const localData = await localResponse.json();
+    
+            const combined = [
+                ...apiData,
+                ...(Array.isArray(localData?.holidays) ? localData.holidays.filter(h => h.holiday_date.startsWith(`${year}-`)) : [])
+            ];
     
             if (!holidaysByYear[year]) holidaysByYear[year] = {};
     
-            data.forEach(holiday => {
+            combined.forEach(holiday => {
                 if (!holiday.holiday_date) return;
-                let dateParts = holiday.holiday_date.split("-");
-                let formattedDate = `${dateParts[1].padStart(2, "0")}-${dateParts[2].padStart(2, "0")}`;
-                holidaysByYear[year][formattedDate] = holiday.holiday_name;
+                const [y, m, d] = holiday.holiday_date.split("-").map(n => parseInt(n, 10));
+                const formatted = `${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+                holidaysByYear[y][formatted] = holiday.holiday_name;
             });
-    
-            generateCalendar();
-        } catch (error) {
-            console.error(`Error mengambil data libur ${year}:`, error);
+        } catch (err) {
+            console.error(`Gagal memuat data libur ${year}:`, err);
         }
-    }
+    }   
     fetchHolidays(year).then(() => { generateCalendar();
 });
 
